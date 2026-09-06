@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MetroParcel | Smart Parcel Delivery</title>
+
+<style>
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background: #f8fafc;
+	color: #0f172a;
+}
+
+/* NAVBAR */
+nav {
+	height: 70px;
+	background: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 8%;
+	border-bottom: 1px solid #e2e8f0;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+}
+
+.logo {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.nav-links {
+	display: flex;
+	gap: 25px;
+	list-style: none;
+}
+
+.nav-links a {
+	text-decoration: none;
+	color: #475569;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.nav-links a:hover {
+	color: #2563eb;
+}
+
+.nav-button {
+	background: #2563eb;
+	color: white;
+	text-decoration: none;
+	padding: 11px 18px;
+	border-radius: 8px;
+	font-weight: bold;
+}
+
+/* HERO */
+.hero {
+	min-height: 550px;
+	display: flex;
+	align-items: center;
+	padding: 70px 8%;
+	background: linear-gradient(135deg, #ffffff, #dbeafe);
+}
+
+.hero-container {
+	max-width: 1200px;
+	width: 100%;
+	margin: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 60px;
+	align-items: center;
+}
+
+.badge {
+	display: inline-block;
+	padding: 8px 14px;
+	background: #dbeafe;
+	color: #2563eb;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.hero h1 {
+	font-size: 55px;
+	line-height: 1.15;
+	margin-bottom: 20px;
+}
+
+.hero h1 span {
+	color: #2563eb;
+}
+
+.hero p {
+	color: #64748b;
+	font-size: 17px;
+	line-height: 1.7;
+	margin-bottom: 30px;
+}
+
+.hero-buttons {
+	display: flex;
+	gap: 15px;
+}
+
+.primary-btn, .secondary-btn {
+	text-decoration: none;
+	padding: 14px 20px;
+	border-radius: 8px;
+	font-weight: bold;
+}
+
+.primary-btn {
+	background: #2563eb;
+	color: white;
+}
+
+.secondary-btn {
+	background: white;
+	color: #0f172a;
+	border: 1px solid #cbd5e1;
+}
+
+.journey-card {
+	background: white;
+	padding: 30px;
+	border-radius: 20px;
+	box-shadow: 0 20px 50px rgba(37, 99, 235, 0.15);
+}
+
+.journey-card h3 {
+	margin-bottom: 25px;
+}
+
+.journey-step {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.journey-icon {
+	width: 45px;
+	height: 45px;
+	background: #dbeafe;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* GENERAL */
+.container {
+	width: 85%;
+	max-width: 1200px;
+	margin: auto;
+	padding: 80px 0;
+}
+
+.section-label {
+	color: #2563eb;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	margin-bottom: 12px;
+}
+
+.section-title {
+	font-size: 36px;
+	margin-bottom: 15px;
+}
+
+.section-description {
+	color: #64748b;
+	line-height: 1.7;
+	margin-bottom: 40px;
+	max-width: 700px;
+}
+
+/* HOW IT WORKS */
+.steps {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 25px;
+}
+
+.step-card {
+	background: white;
+	padding: 30px;
+	border-radius: 15px;
+	border: 1px solid #e2e8f0;
+}
+
+.step-number {
+	width: 40px;
+	height: 40px;
+	background: #dbeafe;
+	color: #2563eb;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.step-card h3 {
+	margin-bottom: 10px;
+}
+
+.step-card p {
+	color: #64748b;
+	line-height: 1.6;
+}
+
+/* BOOKING */
+.booking-section {
+	background: white;
+}
+
+.booking-layout {
+	display: grid;
+	grid-template-columns: 1fr 0.8fr;
+	gap: 30px;
+}
+
+.booking-form {
+	background: #f8fafc;
+	padding: 30px;
+	border-radius: 18px;
+	border: 1px solid #e2e8f0;
+}
+
+.form-note {
+	color: #64748b;
+	margin: 10px 0 25px;
+}
+
+.form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 18px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+label {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+input, select {
+	padding: 14px;
+	border: 1px solid #cbd5e1;
+	border-radius: 8px;
+	width: 100%;
+	background: white;
+}
+
+input:focus, select:focus {
+	outline: none;
+	border-color: #2563eb;
+}
+
+.booking-buttons {
+	display: flex;
+	gap: 12px;
+	margin-top: 25px;
+}
+
+button {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.calculate-btn {
+	background: white;
+	color: #2563eb;
+	border: 1px solid #93c5fd;
+	padding: 14px 18px;
+	border-radius: 8px;
+}
+
+.confirm-btn {
+	background: #2563eb;
+	color: white;
+	border: none;
+	padding: 14px 18px;
+	border-radius: 8px;
+}
+
+#message {
+	display: none;
+	margin-top: 20px;
+	padding: 14px;
+	border-radius: 8px;
+}
+
+/* AVAILABILITY CARD */
+.summary-card {
+	background: #0f172a;
+	color: white;
+	padding: 30px;
+	border-radius: 18px;
+}
+
+.summary-card>p {
+	color: #94a3b8;
+	line-height: 1.6;
+	margin: 12px 0 25px;
+}
+
+.availability-item {
+	background: rgba(255, 255, 255, 0.08);
+	padding: 16px;
+	border-radius: 10px;
+	margin-bottom: 13px;
+}
+
+.availability-item small {
+	color: #94a3b8;
+	display: block;
+	margin-bottom: 6px;
+}
+
+.fee-card {
+	display: none;
+	background: #eff6ff;
+	color: #0f172a;
+	margin-top: 20px;
+	padding: 18px;
+	border-radius: 10px;
+}
+
+.fee-row, .fee-total {
+	display: flex;
+	justify-content: space-between;
+}
+
+.fee-row {
+	color: #64748b;
+	margin-bottom: 12px;
+}
+
+.fee-total {
+	border-top: 1px solid #bfdbfe;
+	padding-top: 14px;
+	color: #2563eb;
+	font-size: 19px;
+}
+
+/* BOOKINGS */
+.bookings-section {
+	background: #f8fafc;
+}
+
+.customer-search {
+	display: flex;
+	gap: 12px;
+	max-width: 650px;
+	margin-bottom: 20px;
+}
+
+.customer-search button {
+	background: #2563eb;
+	color: white;
+	border: none;
+	padding: 0 22px;
+	border-radius: 8px;
+}
+
+#bookingsMessage {
+	color: #64748b;
+	margin-bottom: 20px;
+}
+
+.bookings-list {
+	display: grid;
+	gap: 15px;
+}
+
+.booking-item {
+	background: white;
+	border: 1px solid #e2e8f0;
+	padding: 22px;
+	border-radius: 14px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+}
+
+.booking-details h3 {
+	margin-bottom: 8px;
+}
+
+.booking-details p {
+	color: #64748b;
+	margin: 5px 0;
+	font-size: 14px;
+}
+
+.booking-status {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 6px 12px;
+	border-radius: 20px;
+	background: #dbeafe;
+	color: #2563eb;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.booking-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.track-booking-btn {
+	background: #2563eb;
+	color: white;
+	border: none;
+	padding: 12px 16px;
+	border-radius: 8px;
+}
+
+.cancel-booking-btn {
+	background: white;
+	color: #dc2626;
+	border: 1px solid #fecaca;
+	padding: 12px 16px;
+	border-radius: 8px;
+}
+
+/* TRACKING */
+.track-section {
+	display: none;
+	background: #eff6ff;
+}
+
+.tracking-card {
+	background: white;
+	padding: 30px;
+	border-radius: 18px;
+	border: 1px solid #e2e8f0;
+	max-width: 850px;
+	margin: auto;
+}
+
+.tracking-header {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 22px;
+	border-bottom: 1px solid #e2e8f0;
+	margin-bottom: 25px;
+}
+
+.tracking-header p {
+	color: #64748b;
+	margin-top: 7px;
+}
+
+.status-badge {
+	height: fit-content;
+	background: #dbeafe;
+	color: #2563eb;
+	padding: 8px 14px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.tracking-info {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+	margin-bottom: 30px;
+}
+
+.tracking-info-card {
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	padding: 18px;
+	border-radius: 10px;
+}
+
+.tracking-info-card small {
+	color: #64748b;
+	display: block;
+	margin-bottom: 8px;
+}
+
+.timeline {
+	border-left: 2px solid #dbeafe;
+	padding-left: 35px;
+}
+
+.timeline-step {
+	position: relative;
+	color: #94a3b8;
+	padding-bottom: 25px;
+}
+
+.timeline-step::before {
+	content: "";
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: #cbd5e1;
+	left: -43px;
+	top: 2px;
+}
+
+.timeline-step.active {
+	color: #0f172a;
+	font-weight: bold;
+}
+
+.timeline-step.active::before {
+	background: #2563eb;
+	box-shadow: 0 0 0 5px #dbeafe;
+}
+
+/* FOOTER */
+footer {
+	background: #0f172a;
+	color: #94a3b8;
+	text-align: center;
+	padding: 35px;
+	line-height: 1.8;
+}
+
+footer strong {
+	color: white;
+}
+
+/* MOBILE */
+@media ( max-width : 900px) {
+	.hero-container, .booking-layout, .steps {
+		grid-template-columns: 1fr;
+	}
+	.hero h1 {
+		font-size: 42px;
+	}
+}
+
+@media ( max-width : 650px) {
+	nav {
+		height: auto;
+		padding: 18px;
+		flex-direction: column;
+		gap: 15px;
+	}
+	.nav-links {
+		gap: 12px;
+	}
+	.nav-button {
+		display: none;
+	}
+	.form-grid, .tracking-info {
+		grid-template-columns: 1fr;
+	}
+	.booking-item, .tracking-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.customer-search {
+		flex-direction: column;
+	}
+	.customer-search button {
+		padding: 14px;
+	}
+}
+</style>
+</head>
+
+<body>
+
+	<!-- NAVBAR -->
+
+	<nav>
+
+		<div class="logo">🚇 MetroParcel</div>
+
+		<ul class="nav-links">
+			<li><a href="#home">Home</a></li>
+			<li><a href="#how">How It Works</a></li>
+			<li><a href="#book">Book</a></li>
+			<li><a href="#bookings">My Bookings</a></li>
+		</ul>
+
+		<a href="#book" class="nav-button"> Book Delivery </a>
+
+	</nav>
+
+
+	<!-- HERO -->
+
+	<section class="hero" id="home">
+
+		<div class="hero-container">
+
+			<div>
+
+				<div class="badge">SMART METRO-BASED DELIVERY</div>
+
+				<h1>
+					A smarter way to <span>move your parcel.</span>
+				</h1>
+
+				<p>MetroParcel is a smart delivery platform prototype that
+					combines metro transportation and delivery partners for convenient
+					and trackable parcel delivery.</p>
+
+				<div class="hero-buttons">
+
+					<a href="#book" class="primary-btn"> Book a Parcel → </a> <a
+						href="#bookings" class="secondary-btn"> My Bookings </a>
+
+				</div>
+
+			</div>
+
+
+			<div class="journey-card">
+
+				<h3>Your Parcel Journey</h3>
+
+				<div class="journey-step">
+
+					<div class="journey-icon">📦</div>
+
+					<div>
+						<strong>Parcel Pickup</strong>
+						<p>Your parcel is collected.</p>
+					</div>
+
+				</div>
+
+
+				<div class="journey-step">
+
+					<div class="journey-icon">🚇</div>
+
+					<div>
+						<strong>Metro Transportation</strong>
+						<p>Your parcel travels through the metro.</p>
+					</div>
+
+				</div>
+
+
+				<div class="journey-step">
+
+					<div class="journey-icon">🛵</div>
+
+					<div>
+						<strong>Final Delivery</strong>
+						<p>A delivery partner completes delivery.</p>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+
+	<!-- HOW IT WORKS -->
+
+	<section class="container" id="how">
+
+		<div class="section-label">SIMPLE PROCESS</div>
+
+		<h2 class="section-title">How MetroParcel Works</h2>
+
+		<p class="section-description">Book your parcel, transport it
+			using the metro network, and track its complete delivery journey.</p>
+
+
+		<div class="steps">
+
+			<div class="step-card">
+
+				<div class="step-number">01</div>
+
+				<h3>📦 Book Your Parcel</h3>
+
+				<p>Enter your parcel and delivery information.</p>
+
+			</div>
+
+
+			<div class="step-card">
+
+				<div class="step-number">02</div>
+
+				<h3>🚇 Metro Transport</h3>
+
+				<p>Your parcel travels through the metro network.</p>
+
+			</div>
+
+
+			<div class="step-card">
+
+				<div class="step-number">03</div>
+
+				<h3>🛵 Final Delivery</h3>
+
+				<p>A delivery partner completes the final delivery.</p>
+
+			</div>
+
+		</div>
+
+	</section>
+
+
+	<!-- BOOK PARCEL -->
+
+	<section class="booking-section" id="book">
+
+		<div class="container">
+
+			<div class="section-label">PARCEL BOOKING</div>
+
+			<h2 class="section-title">Plan Your Parcel Delivery</h2>
+
+			<p class="section-description">Check metro availability, delivery
+				partner availability and estimated charges before booking.</p>
+
+
+			<div class="booking-layout">
+
+
+				<!-- FORM -->
+
+				<div class="booking-form">
+
+					<h3>Delivery Details</h3>
+
+					<p class="form-note">Enter your parcel information below.</p>
+
+
+					<form id="parcelForm">
+
+						<div class="form-grid">
+
+
+							<div class="form-group">
+
+								<label>Customer Name</label> <input type="text"
+									id="customerName" placeholder="Enter your name" required>
+
+							</div>
+
+
+							<div class="form-group">
+
+								<label>Parcel Description</label> <input type="text"
+									id="description" placeholder="Example: Documents">
+
+							</div>
+
+
+							<div class="form-group">
+
+								<label>Source Metro Station</label> <select id="sourceStation"
+									required>
+
+									<option value="">Select source station</option>
+
+									<option>Silk Institute</option>
+									<option>Yelachenahalli</option>
+									<option>Jayanagar</option>
+									<option>South End Circle</option>
+									<option>Lalbagh</option>
+									<option>Majestic</option>
+									<option>Indiranagar</option>
+									<option>Whitefield</option>
+
+								</select>
+
+							</div>
+
+
+							<div class="form-group">
+
+								<label>Destination Metro Station</label> <select
+									id="destinationStation" required>
+
+									<option value="">Select destination station</option>
+
+									<option>Silk Institute</option>
+									<option>Yelachenahalli</option>
+									<option>Jayanagar</option>
+									<option>South End Circle</option>
+									<option>Lalbagh</option>
+									<option>Majestic</option>
+									<option>Indiranagar</option>
+									<option>Whitefield</option>
+
+								</select>
+
+							</div>
+
+						</div>
+
+
+						<div class="booking-buttons">
+
+							<button type="button" class="calculate-btn"
+								onclick="checkAvailability()">Check Availability</button>
+
+
+							<button type="submit" class="confirm-btn">Confirm
+								Booking →</button>
+
+						</div>
+
+					</form>
+
+
+					<div id="message"></div>
+
+				</div>
+
+
+				<!-- AVAILABILITY -->
+
+				<div class="summary-card">
+
+					<h3>Delivery Availability</h3>
+
+					<p>Select your route to check availability.</p>
+
+
+					<div class="availability-item">
+
+						<small>📍 Nearest Metro Station</small> <strong id="nearestMetro">
+							Select your source </strong>
+
+					</div>
+
+
+					<div class="availability-item">
+
+						<small>🚇 Metro Availability</small> <strong id="metroStatus">
+							Check availability </strong>
+
+					</div>
+
+
+					<div class="availability-item">
+
+						<small>🛵 Delivery Partner</small> <strong id="partnerStatus">
+							Check availability </strong>
+
+					</div>
+
+
+					<div class="availability-item">
+
+						<small>⏱ Estimated Delivery Time</small> <strong id="deliveryTime">
+							Check availability </strong>
+
+					</div>
+
+
+					<div class="fee-card" id="feeCard">
+
+						<div class="fee-row">
+
+							<span>Base Service</span> <span id="baseFee">₹30</span>
+
+						</div>
+
+
+						<div class="fee-row">
+
+							<span>Metro Transport</span> <span id="metroFee">₹25</span>
+
+						</div>
+
+
+						<div class="fee-row">
+
+							<span>Pickup & Delivery</span> <span id="deliveryFee">₹40</span>
+
+						</div>
+
+
+						<div class="fee-total">
+
+							<span>Total</span> <span id="totalFee">₹95</span>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+
+	<!-- MY BOOKINGS -->
+
+	<section class="bookings-section" id="bookings">
+
+		<div class="container">
+
+			<div class="section-label">MY BOOKINGS</div>
+
+			<h2 class="section-title">Your Recent Parcels</h2>
+
+			<p class="section-description">View your previous bookings and
+				directly track any parcel without remembering its Parcel ID.</p>
+
+
+			<div class="customer-search">
+
+				<input type="text" id="bookingCustomerName"
+					placeholder="Enter your customer name">
+
+				<button type="button" onclick="loadMyBookings()">View My
+					Bookings</button>
+
+			</div>
+
+
+			<p id="bookingsMessage">Enter your name to view your bookings.</p>
+
+
+			<div class="bookings-list" id="bookingsList"></div>
+
+		</div>
+
+	</section>
+
+	<!-- TRACK PARCEL BY ID -->
+
+	<section class="bookings-section">
+
+		<div class="container">
+
+			<div class="section-label">QUICK TRACKING</div>
+
+			<h2 class="section-title">Track Your Parcel</h2>
+
+			<p class="section-description">Enter your Parcel ID to check the
+				latest delivery status.</p>
+
+			<div class="customer-search">
+
+				<input type="number" id="parcelIdSearch"
+					placeholder="Enter Parcel ID">
+
+				<button type="button" onclick="trackParcelById()">
+					Track Parcel</button>
+
+			</div>
+
+			<p id="parcelSearchMessage"></p>
+
+		</div>
+
+	</section>
+	<!-- TRACKING -->
+
+	<section class="track-section" id="trackingSection">
+
+		<div class="container">
+
+			<div class="section-label">PARCEL TRACKING</div>
+
+			<h2 class="section-title">Your Parcel Journey</h2>
+
+
+			<div class="tracking-card">
+
+
+				<div class="tracking-header">
+
+					<div>
+
+						<h3 id="trackCustomer">Customer Name</h3>
+
+						<p id="trackRoute">Source → Destination</p>
+
+					</div>
+
+
+					<div class="status-badge" id="trackStatus">BOOKED</div>
+
+				</div>
+
+
+				<div class="tracking-info">
+
+
+					<div class="tracking-info-card">
+
+						<small> 📍 Current Location </small> <strong id="currentLocation">
+							Booking confirmed </strong>
+
+					</div>
+
+
+					<div class="tracking-info-card">
+
+						<small> ⏱ Estimated Delivery </small> <strong
+							id="estimatedDelivery"> Calculating... </strong>
+
+					</div>
+
+				</div>
+
+
+				<div class="timeline">
+
+					<div class="timeline-step" id="stepBooked">📦 Parcel Booking
+						Confirmed</div>
+
+
+					<div class="timeline-step" id="stepPickup">🛵 Pickup by
+						Delivery Partner</div>
+
+
+					<div class="timeline-step" id="stepSource">📍 Reached Source
+						Metro Station</div>
+
+
+					<div class="timeline-step" id="stepTransit">🚇 Travelling via
+						Metro</div>
+
+
+					<div class="timeline-step" id="stepDestination">📍 Reached
+						Destination Station</div>
+
+
+					<div class="timeline-step" id="stepDelivery">🛵 Out for Final
+						Delivery</div>
+
+
+					<div class="timeline-step" id="stepDelivered">✅ Parcel
+						Delivered</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+
+	<!-- FOOTER -->
+
+	<footer>
+
+		<p>
+			<strong>MetroParcel</strong> — Smart Metro-Based Parcel Delivery
+			Prototype
+		</p>
+
+		<p>Built using Java, Spring Boot, Hibernate/JPA, HTML, CSS and
+			JavaScript.</p>
+
+	</footer>
+
+
+	<script>
+
+/* ================================
+   CURRENTLY TRACKED PARCEL
+================================ */
+
+let trackedParcelId = null;
+
+
+/* ================================
+   STATION DATA
+================================ */
+
+const stations = {
+
+    "Silk Institute": 0,
+    "Yelachenahalli": 1,
+    "Jayanagar": 2,
+    "South End Circle": 3,
+    "Lalbagh": 4,
+    "Majestic": 5,
+    "Indiranagar": 7,
+    "Whitefield": 10
+
+};
+
+
+/* ================================
+   PROFESSIONAL MESSAGE
+================================ */
+
+function showMessage(message, type = "info") {
+
+    const messageBox =
+        document.getElementById("message");
+
+    messageBox.style.display = "block";
+    messageBox.style.padding = "14px";
+    messageBox.style.borderRadius = "8px";
+    messageBox.style.marginTop = "20px";
+
+    messageBox.innerText = message;
+
+    if (type === "success") {
+
+        messageBox.style.background = "#dcfce7";
+        messageBox.style.color = "#166534";
+        messageBox.style.border = "1px solid #bbf7d0";
+
+    }
+
+    else if (type === "error") {
+
+        messageBox.style.background = "#fee2e2";
+        messageBox.style.color = "#b91c1c";
+        messageBox.style.border = "1px solid #fecaca";
+
+    }
+
+    else {
+
+        messageBox.style.background = "#dbeafe";
+        messageBox.style.color = "#1d4ed8";
+        messageBox.style.border = "1px solid #bfdbfe";
+
+    }
+
+}
+
+
+/* ================================
+   BOOKINGS MESSAGE
+================================ */
+
+function showBookingsMessage(message, type = "info") {
+
+    const messageBox =
+        document.getElementById("bookingsMessage");
+
+    messageBox.innerText = message;
+
+    messageBox.style.padding = "14px 18px";
+    messageBox.style.borderRadius = "8px";
+    messageBox.style.fontWeight = "500";
+
+    if (type === "success") {
+
+        messageBox.style.background = "#dcfce7";
+        messageBox.style.color = "#166534";
+        messageBox.style.border = "1px solid #bbf7d0";
+
+    }
+
+    else if (type === "error") {
+
+        messageBox.style.background = "#fee2e2";
+        messageBox.style.color = "#b91c1c";
+        messageBox.style.border = "1px solid #fecaca";
+
+    }
+
+    else {
+
+        messageBox.style.background = "#eff6ff";
+        messageBox.style.color = "#1d4ed8";
+        messageBox.style.border = "1px solid #bfdbfe";
+
+    }
+
+}
+
+
+/* ================================
+   CHECK AVAILABILITY
+================================ */
+
+function checkAvailability() {
+
+    const source =
+        document.getElementById(
+            "sourceStation"
+        ).value;
+
+    const destination =
+        document.getElementById(
+            "destinationStation"
+        ).value;
+
+
+    if (!source || !destination) {
+
+        showMessage(
+            "Please select both source and destination stations.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (source === destination) {
+
+        showMessage(
+            "Source and destination stations cannot be the same.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const distance =
+        Math.abs(
+            stations[source] -
+            stations[destination]
+        );
+
+
+    let metroCharge;
+
+    let estimatedTime;
+
+
+    if (distance <= 2) {
+
+        metroCharge = 25;
+        estimatedTime = "30–45 minutes";
+
+    }
+
+    else if (distance <= 5) {
+
+        metroCharge = 45;
+        estimatedTime = "45–60 minutes";
+
+    }
+
+    else {
+
+        metroCharge = 70;
+        estimatedTime = "60–90 minutes";
+
+    }
+
+
+    const baseCharge = 30;
+
+    const deliveryCharge = 40;
+
+    const total =
+        baseCharge +
+        metroCharge +
+        deliveryCharge;
+
+
+    document.getElementById(
+        "nearestMetro"
+    ).innerText = source;
+
+
+    document.getElementById(
+        "metroStatus"
+    ).innerText = "Available";
+
+
+    document.getElementById(
+        "partnerStatus"
+    ).innerText =
+        "Available • Pickup in 10–15 minutes";
+
+
+    document.getElementById(
+        "deliveryTime"
+    ).innerText = estimatedTime;
+
+
+    document.getElementById(
+        "baseFee"
+    ).innerText =
+        "₹" + baseCharge;
+
+
+    document.getElementById(
+        "metroFee"
+    ).innerText =
+        "₹" + metroCharge;
+
+
+    document.getElementById(
+        "deliveryFee"
+    ).innerText =
+        "₹" + deliveryCharge;
+
+
+    document.getElementById(
+        "totalFee"
+    ).innerText =
+        "₹" + total;
+
+
+    document.getElementById(
+        "feeCard"
+    ).style.display = "block";
+
+
+    showMessage(
+        "Delivery availability checked successfully.",
+        "success"
+    );
+
+}
+
+
+/* ================================
+   BOOK PARCEL
+================================ */
+
+document.getElementById(
+    "parcelForm"
+).addEventListener(
+
+    "submit",
+
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const customerName =
+            document.getElementById(
+                "customerName"
+            ).value.trim();
+
+
+        const description =
+            document.getElementById(
+                "description"
+            ).value.trim();
+
+
+        const sourceStation =
+            document.getElementById(
+                "sourceStation"
+            ).value;
+
+
+        const destinationStation =
+            document.getElementById(
+                "destinationStation"
+            ).value;
+
+
+        if (
+            !customerName ||
+            !sourceStation ||
+            !destinationStation
+        ) {
+
+            showMessage(
+                "Please fill in all required delivery details.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (
+            sourceStation ===
+            destinationStation
+        ) {
+
+            showMessage(
+                "Source and destination stations cannot be the same.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/parcels",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                customerName:
+                                    customerName,
+
+                                description:
+                                    description,
+
+                                sourceStation:
+                                    sourceStation,
+
+                                destinationStation:
+                                    destinationStation
+
+                            })
+
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Booking failed"
+                );
+
+            }
+
+
+            const parcel =
+                await response.json();
+
+
+            localStorage.setItem(
+                "metroParcelCustomer",
+                customerName
+            );
+
+
+            document.getElementById(
+                "bookingCustomerName"
+            ).value =
+                customerName;
+
+
+            showMessage(
+                "✓ Booking confirmed successfully! Your Parcel ID is #" +
+                parcel.id +
+                ". You can track it anytime from My Bookings.",
+                "success"
+            );
+
+
+            document.getElementById(
+                "parcelForm"
+            ).reset();
+
+
+            document.getElementById(
+                "feeCard"
+            ).style.display =
+                "none";
+
+
+            loadMyBookings();
+
+        }
+
+        catch (error) {
+
+            showMessage(
+                "Unable to complete your booking. Please make sure the application is running.",
+                "error"
+            );
+
+        }
+
+    }
+
+);
+
+
+/* ================================
+   LOAD MY BOOKINGS
+================================ */
+
+async function loadMyBookings() {
+
+    const customerName =
+        document.getElementById(
+            "bookingCustomerName"
+        ).value.trim();
+
+
+    if (!customerName) {
+
+        showBookingsMessage(
+            "Please enter your customer name to view your bookings.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "metroParcelCustomer",
+        customerName
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/parcels"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load bookings"
+            );
+
+        }
+
+
+        const parcels =
+            await response.json();
+
+
+        const customerParcels =
+            parcels
+                .filter(
+
+                    parcel =>
+
+                        parcel.customerName
+                            .toLowerCase() ===
+                        customerName
+                            .toLowerCase()
+
+                )
+
+                .sort(
+                    (a, b) =>
+                        b.id - a.id
+                );
+
+
+        const bookingsList =
+            document.getElementById(
+                "bookingsList"
+            );
+
+
+        bookingsList.innerHTML = "";
+
+
+        if (
+            customerParcels.length === 0
+        ) {
+
+            showBookingsMessage(
+                "No bookings found for " +
+                customerName + ".",
+                "info"
+            );
+
+            return;
+
+        }
+
+
+        showBookingsMessage(
+            customerParcels.length +
+            " booking(s) found for " +
+            customerName + ".",
+            "success"
+        );
+
+
+        customerParcels.forEach(
+            function(parcel) {
+
+
+                const bookingItem =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                bookingItem.className =
+                    "booking-item";
+
+
+                let cancelButton = "";
+
+
+                if (
+                    parcel.status ===
+                    "BOOKED"
+                ) {
+
+                    cancelButton =
+                        "<button class='cancel-booking-btn'>" +
+                        "Cancel Booking" +
+                        "</button>";
+
+                }
+
+
+                bookingItem.innerHTML =
+
+                    "<div class='booking-details'>" +
+
+                    "<h3>Parcel #" +
+                    parcel.id +
+                    "</h3>" +
+
+                    "<p><strong>Parcel:</strong> " +
+                    (
+                        parcel.description ||
+                        "Not specified"
+                    ) +
+                    "</p>" +
+
+                    "<p><strong>Route:</strong> " +
+                    parcel.sourceStation +
+                    " → " +
+                    parcel.destinationStation +
+                    "</p>" +
+
+                    "<span class='booking-status'>" +
+                    parcel.status +
+                    "</span>" +
+
+                    "</div>" +
+
+
+                    "<div class='booking-actions'>" +
+
+                    "<button class='track-booking-btn'>" +
+                    "Track Parcel →" +
+                    "</button>" +
+
+                    cancelButton +
+
+                    "</div>";
+
+
+                /* TRACK BUTTON */
+
+                bookingItem
+                    .querySelector(
+                        ".track-booking-btn"
+                    )
+                    .addEventListener(
+
+                        "click",
+
+                        async function() {
+
+                            trackedParcelId =
+                                parcel.id;
+
+
+                            try {
+
+                                const latestParcel =
+                                    await getLatestParcel(
+                                        parcel.id
+                                    );
+
+
+                                showTracking(
+                                    latestParcel
+                                );
+
+                            }
+
+                            catch (error) {
+
+                                showBookingsMessage(
+                                    "Unable to load parcel tracking information.",
+                                    "error"
+                                );
+
+                            }
+
+                        }
+
+                    );
+
+
+                /* CANCEL BUTTON */
+
+                const cancelBtn =
+                    bookingItem
+                        .querySelector(
+                            ".cancel-booking-btn"
+                        );
+
+
+                if (cancelBtn) {
+
+                    cancelBtn.addEventListener(
+
+                        "click",
+
+                        function() {
+
+                            openCancelModal(
+                                parcel.id
+                            );
+
+                        }
+
+                    );
+
+                }
+
+
+                bookingsList.appendChild(
+                    bookingItem
+                );
+
+            }
+
+        );
+
+    }
+
+    catch (error) {
+
+        showBookingsMessage(
+            "Unable to load your bookings. Please try again.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   GET LATEST PARCEL
+================================ */
+
+async function getLatestParcel(id) {
+
+    const response =
+        await fetch(
+            "/api/parcels/" + id
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Unable to get parcel details"
+        );
+
+    }
+
+
+    return await response.json();
+
+}
+
+
+/* ================================
+   PROFESSIONAL CANCEL MODAL
+================================ */
+
+function openCancelModal(id) {
+
+    let modal =
+        document.getElementById(
+            "cancelModal"
+        );
+
+
+    if (!modal) {
+
+        modal =
+            document.createElement(
+                "div"
+            );
+
+
+        modal.id =
+            "cancelModal";
+
+
+        modal.innerHTML =
+
+            "<div class='cancel-modal-box'>" +
+
+            "<div class='cancel-icon'>!</div>" +
+
+            "<h2>Cancel this booking?</h2>" +
+
+            "<p>Are you sure you want to cancel this parcel booking? This action cannot be undone.</p>" +
+
+            "<div class='cancel-modal-buttons'>" +
+
+            "<button id='keepBookingBtn'>" +
+            "Keep Booking" +
+            "</button>" +
+
+            "<button id='confirmCancelBtn'>" +
+            "Yes, Cancel" +
+            "</button>" +
+
+            "</div>" +
+
+            "</div>";
+
+
+        document.body.appendChild(
+            modal
+        );
+
+
+        addModalStyles();
+
+    }
+
+
+    modal.style.display =
+        "flex";
+
+
+    document.getElementById(
+        "keepBookingBtn"
+    ).onclick =
+        function() {
+
+            modal.style.display =
+                "none";
+
+        };
+
+
+    document.getElementById(
+        "confirmCancelBtn"
+    ).onclick =
+        async function() {
+
+            modal.style.display =
+                "none";
+
+
+            await cancelBooking(
+                id
+            );
+
+        };
+
+}
+
+
+/* ================================
+   MODAL STYLES
+================================ */
+
+function addModalStyles() {
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.innerHTML = `
+
+        #cancelModal {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+                rgba(15, 23, 42, 0.55);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 9999;
+
+            padding: 20px;
+
+        }
+
+
+        .cancel-modal-box {
+
+            background: white;
+
+            width: 100%;
+
+            max-width: 420px;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.2);
+
+            animation:
+                modalAppear 0.25s ease;
+
+        }
+
+
+        @keyframes modalAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.97);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        .cancel-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #fee2e2;
+
+            color: #dc2626;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+        }
+
+
+        .cancel-modal-box h2 {
+
+            margin-bottom: 12px;
+
+            color: #0f172a;
+
+        }
+
+
+        .cancel-modal-box p {
+
+            color: #64748b;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .cancel-modal-buttons {
+
+            display: flex;
+
+            gap: 12px;
+
+            justify-content: center;
+
+        }
+
+
+        #keepBookingBtn {
+
+            background: white;
+
+            color: #334155;
+
+            border:
+                1px solid #cbd5e1;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+        }
+
+
+        #confirmCancelBtn {
+
+            background: #dc2626;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+}
+
+
+/* ================================
+   CANCEL BOOKING
+================================ */
+
+async function cancelBooking(id) {
+
+    try {
+
+        const response =
+            await fetch(
+
+                "/api/parcels/" +
+                id +
+                "/cancel",
+
+                {
+                    method: "PATCH"
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            showBookingsMessage(
+                "This parcel can no longer be cancelled because it has already been picked up or shipped.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showBookingsMessage(
+            "✓ Booking cancelled successfully. Your parcel will not be processed for delivery.",
+            "success"
+        );
+
+
+        if (
+            trackedParcelId === id
+        ) {
+
+            trackedParcelId = null;
+
+        }
+
+
+        await loadMyBookings();
+
+    }
+
+    catch (error) {
+
+        showBookingsMessage(
+            "We couldn't process your cancellation at the moment. Please try again.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ================================
+   SHOW TRACKING
+================================ */
+
+function showTracking(parcel) {
+
+    document.getElementById(
+        "trackingSection"
+    ).style.display =
+        "block";
+
+
+    updateTrackingInformation(
+        parcel
+    );
+
+
+    document.getElementById(
+        "trackingSection"
+    ).scrollIntoView(
+        {
+            behavior: "smooth"
+        }
+    );
+
+}
+
+
+/* ================================
+   UPDATE TRACKING INFORMATION
+================================ */
+
+function updateTrackingInformation(parcel) {
+
+    document.getElementById(
+        "trackCustomer"
+    ).innerText =
+        parcel.customerName;
+
+
+    document.getElementById(
+        "trackRoute"
+    ).innerText =
+
+        parcel.sourceStation +
+        " → " +
+        parcel.destinationStation;
+
+
+    document.getElementById(
+        "trackStatus"
+    ).innerText =
+        parcel.status;
+
+
+    document.getElementById(
+        "currentLocation"
+    ).innerText =
+
+        parcel.currentLocation ||
+        "Tracking information is being updated.";
+
+
+    document.getElementById(
+        "estimatedDelivery"
+    ).innerText =
+
+        parcel.estimatedDelivery ||
+        "Estimated delivery time is being calculated.";
+
+
+    updateTimeline(
+        parcel.status
+    );
+
+}
+
+
+/* ================================
+   UPDATE TIMELINE
+================================ */
+
+function updateTimeline(status) {
+
+    const steps = [
+
+        "stepBooked",
+        "stepPickup",
+        "stepSource",
+        "stepTransit",
+        "stepDestination",
+        "stepDelivery",
+        "stepDelivered"
+
+    ];
+
+
+    steps.forEach(
+        function(step) {
+
+            document
+                .getElementById(step)
+                .classList
+                .remove("active");
+
+        }
+    );
+
+
+    let activeSteps = 0;
+
+
+    if (status === "BOOKED") {
+
+        activeSteps = 1;
+
+    }
+
+    else if (
+        status === "PICKED_UP"
+    ) {
+
+        activeSteps = 2;
+
+    }
+
+    else if (
+        status ===
+        "AT_SOURCE_STATION"
+    ) {
+
+        activeSteps = 3;
+
+    }
+
+    else if (
+        status ===
+        "IN_TRANSIT"
+    ) {
+
+        activeSteps = 4;
+
+    }
+
+    else if (
+        status ===
+        "AT_DESTINATION_STATION"
+    ) {
+
+        activeSteps = 5;
+
+    }
+
+    else if (
+        status ===
+        "OUT_FOR_DELIVERY"
+    ) {
+
+        activeSteps = 6;
+
+    }
+
+    else if (
+        status ===
+        "DELIVERED"
+    ) {
+
+        activeSteps = 7;
+
+    }
+
+
+    for (
+        let i = 0;
+        i < activeSteps;
+        i++
+    ) {
+
+        document
+            .getElementById(
+                steps[i]
+            )
+            .classList
+            .add("active");
+
+    }
+
+}
+
+
+/* ================================
+   AUTO UPDATE TRACKING
+================================ */
+
+setInterval(
+
+    async function() {
+
+        if (
+            trackedParcelId !== null
+        ) {
+
+            try {
+
+                const parcel =
+                    await getLatestParcel(
+                        trackedParcelId
+                    );
+
+
+                updateTrackingInformation(
+                    parcel
+                );
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Tracking update failed"
+                );
+
+            }
+
+        }
+
+    },
+
+    30000
+
+);
+
+
+/* ================================
+   LOAD SAVED CUSTOMER
+================================ */
+
+window.addEventListener(
+
+    "DOMContentLoaded",
+
+    function() {
+
+        const savedCustomer =
+            localStorage.getItem(
+                "metroParcelCustomer"
+            );
+
+
+        if (savedCustomer) {
+
+            document.getElementById(
+                "bookingCustomerName"
+            ).value =
+                savedCustomer;
+
+
+            loadMyBookings();
+
+        }
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>

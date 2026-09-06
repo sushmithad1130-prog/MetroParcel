@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MetroParcel | Admin Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 85%;
+            max-width: 1300px;
+            margin: auto;
+            padding: 50px 0;
+        }
+
+        .page-title {
+            margin-bottom: 8px;
+        }
+
+        .page-description {
+            color: #64748b;
+            margin-bottom: 35px;
+        }
+
+        /* DASHBOARD CARDS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .stat-card small {
+            color: #64748b;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h2 {
+            font-size: 32px;
+        }
+
+        /* SEARCH */
+
+        .search-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .search-section h3 {
+            margin-bottom: 18px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* PARCEL TABLE */
+
+        .parcel-section {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .parcel-section h3 {
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            background: #f8fafc;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        select {
+            padding: 9px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+
+        .update-btn {
+            background: #2563eb;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 7px;
+        }
+
+        .details-btn {
+            background: #0f172a;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 7px;
+            margin-right: 8px;
+        }
+
+        .refresh-btn {
+            background: #0f172a;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+        }
+
+        /* MESSAGE */
+
+        #message {
+            margin-bottom: 20px;
+            display: none;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        /* DETAILS MODAL */
+
+        #detailsModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 18px;
+            padding: 30px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+        }
+
+        .close-btn {
+            background: #f1f5f9;
+            color: #334155;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 10px;
+        }
+
+        .detail-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .detail-card small {
+            display: block;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .detail-card strong {
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            🚇 MetroParcel Admin
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Customer Portal</a>
+
+            <a href="#" onclick="loadParcels(); return false;">
+                Refresh
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <h1 class="page-title">
+            Admin Dashboard
+        </h1>
+
+        <p class="page-description">
+            Monitor parcel deliveries and manage the MetroParcel system.
+        </p>
+
+
+        <!-- MESSAGE -->
+
+        <div id="message"></div>
+
+
+        <!-- DASHBOARD CARDS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <small>Total Parcels</small>
+                <h2 id="totalParcels">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <small>Booked</small>
+                <h2 id="bookedParcels">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <small>In Transit</small>
+                <h2 id="transitParcels">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <small>Out for Delivery</small>
+                <h2 id="deliveryParcels">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <small>Delivered</small>
+                <h2 id="deliveredParcels">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <small>Cancelled</small>
+                <h2 id="cancelledParcels">0</h2>
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-section">
+
+            <h3>🔍 Search Parcels</h3>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by Parcel ID, Customer Name or Station"
+                    oninput="searchParcels()">
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadParcels()">
+
+                    Refresh Data
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PARCEL TABLE -->
+
+        <div class="parcel-section">
+
+            <h3>All Parcels</h3>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Customer</th>
+
+                            <th>Parcel</th>
+
+                            <th>Route</th>
+
+                            <th>Status</th>
+
+                            <th>Update Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="parcelTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PARCEL DETAILS MODAL -->
+
+    <div id="detailsModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <h2>
+                    📦 Parcel Details
+                </h2>
+
+                <button
+                    class="close-btn"
+                    onclick="closeDetailsModal()">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="details-grid">
+
+                <div class="detail-card">
+
+                    <small>Parcel ID</small>
+
+                    <strong id="detailId">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>Current Status</small>
+
+                    <strong id="detailStatus">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>Customer Name</small>
+
+                    <strong id="detailCustomer">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>Parcel Description</small>
+
+                    <strong id="detailDescription">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>Source Station</small>
+
+                    <strong id="detailSource">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>Destination Station</small>
+
+                    <strong id="detailDestination">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card full-width">
+
+                    <small>📍 Current Location</small>
+
+                    <strong id="detailLocation">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>⏱ Estimated Delivery</small>
+
+                    <strong id="detailEstimatedDelivery">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <small>📅 Booking Time</small>
+
+                    <strong id="detailBookingTime">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let allParcels = [];
+
+
+        /* =========================
+           SHOW MESSAGE
+        ========================= */
+
+        function showMessage(message, type = "success") {
+
+            const messageBox =
+                document.getElementById("message");
+
+            messageBox.style.display = "block";
+
+            messageBox.innerText = message;
+
+
+            if (type === "success") {
+
+                messageBox.style.background = "#dcfce7";
+
+                messageBox.style.color = "#166534";
+
+            }
+
+            else if (type === "error") {
+
+                messageBox.style.background = "#fee2e2";
+
+                messageBox.style.color = "#b91c1c";
+
+            }
+
+            else {
+
+                messageBox.style.background = "#dbeafe";
+
+                messageBox.style.color = "#1d4ed8";
+
+            }
+
+        }
+
+
+        /* =========================
+           LOAD PARCELS
+        ========================= */
+
+        async function loadParcels() {
+
+            try {
+
+                const response =
+                    await fetch("/api/parcels");
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load parcels"
+                    );
+
+                }
+
+
+                allParcels =
+                    await response.json();
+
+
+                updateDashboard();
+
+                searchParcels();
+
+            }
+
+            catch (error) {
+
+                showMessage(
+                    "Unable to connect to the MetroParcel server.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           UPDATE DASHBOARD
+        ========================= */
+
+        function updateDashboard() {
+
+            document.getElementById(
+                "totalParcels"
+            ).innerText =
+                allParcels.length;
+
+
+            document.getElementById(
+                "bookedParcels"
+            ).innerText =
+                allParcels.filter(
+                    parcel =>
+                        parcel.status === "BOOKED"
+                ).length;
+
+
+            document.getElementById(
+                "transitParcels"
+            ).innerText =
+                allParcels.filter(
+                    parcel =>
+                        parcel.status === "IN_TRANSIT"
+                ).length;
+
+
+            document.getElementById(
+                "deliveryParcels"
+            ).innerText =
+                allParcels.filter(
+                    parcel =>
+                        parcel.status === "OUT_FOR_DELIVERY"
+                ).length;
+
+
+            document.getElementById(
+                "deliveredParcels"
+            ).innerText =
+                allParcels.filter(
+                    parcel =>
+                        parcel.status === "DELIVERED"
+                ).length;
+
+
+            document.getElementById(
+                "cancelledParcels"
+            ).innerText =
+                allParcels.filter(
+                    parcel =>
+                        parcel.status === "CANCELLED"
+                ).length;
+
+        }
+
+
+        /* =========================
+           DISPLAY PARCELS
+        ========================= */
+
+        function displayParcels(parcels) {
+
+            const tableBody =
+                document.getElementById(
+                    "parcelTableBody"
+                );
+
+
+            tableBody.innerHTML = "";
+
+
+            if (parcels.length === 0) {
+
+                tableBody.innerHTML =
+                    "<tr>" +
+                    "<td colspan='7'>" +
+                    "No parcels found." +
+                    "</td>" +
+                    "</tr>";
+
+                return;
+
+            }
+
+
+            parcels.forEach(
+                function (parcel) {
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    row.innerHTML =
+
+                        "<td>#" +
+                        parcel.id +
+                        "</td>" +
+
+
+                        "<td>" +
+                        parcel.customerName +
+                        "</td>" +
+
+
+                        "<td>" +
+                        (
+                            parcel.description ||
+                            "Not specified"
+                        ) +
+                        "</td>" +
+
+
+                        "<td>" +
+                        parcel.sourceStation +
+                        " → " +
+                        parcel.destinationStation +
+                        "</td>" +
+
+
+                        "<td>" +
+                        "<span class='status'>" +
+                        parcel.status +
+                        "</span>" +
+                        "</td>" +
+
+
+                        "<td>" +
+
+                        "<select class='status-select'>" +
+
+                        "<option value='BOOKED'>BOOKED</option>" +
+
+                        "<option value='PICKED_UP'>PICKED UP</option>" +
+
+                        "<option value='AT_SOURCE_STATION'>AT SOURCE STATION</option>" +
+
+                        "<option value='IN_TRANSIT'>IN TRANSIT</option>" +
+
+                        "<option value='AT_DESTINATION_STATION'>AT DESTINATION STATION</option>" +
+
+                        "<option value='OUT_FOR_DELIVERY'>OUT FOR DELIVERY</option>" +
+
+                        "<option value='DELIVERED'>DELIVERED</option>" +
+
+                        "</select>" +
+
+                        "</td>" +
+
+
+                        "<td>" +
+
+                        "<button class='details-btn'>" +
+                        "Details" +
+                        "</button>" +
+
+                        "<button class='update-btn'>" +
+                        "Update" +
+                        "</button>" +
+
+                        "</td>";
+
+
+                    const statusSelect =
+                        row.querySelector(
+                            ".status-select"
+                        );
+
+
+                    statusSelect.value =
+                        parcel.status;
+
+
+                    row.querySelector(
+                        ".details-btn"
+                    ).addEventListener(
+                        "click",
+                        function () {
+
+                            openDetailsModal(parcel);
+
+                        }
+                    );
+
+
+                    row.querySelector(
+                        ".update-btn"
+                    ).addEventListener(
+                        "click",
+                        function () {
+
+                            updateParcelStatus(
+                                parcel.id,
+                                statusSelect.value
+                            );
+
+                        }
+                    );
+
+
+                    tableBody.appendChild(row);
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           OPEN DETAILS MODAL
+        ========================= */
+
+        function openDetailsModal(parcel) {
+
+            document.getElementById(
+                "detailId"
+            ).innerText =
+                "#" + parcel.id;
+
+
+            document.getElementById(
+                "detailStatus"
+            ).innerText =
+                parcel.status;
+
+
+            document.getElementById(
+                "detailCustomer"
+            ).innerText =
+                parcel.customerName;
+
+
+            document.getElementById(
+                "detailDescription"
+            ).innerText =
+                parcel.description ||
+                "Not specified";
+
+
+            document.getElementById(
+                "detailSource"
+            ).innerText =
+                parcel.sourceStation;
+
+
+            document.getElementById(
+                "detailDestination"
+            ).innerText =
+                parcel.destinationStation;
+
+
+            document.getElementById(
+                "detailLocation"
+            ).innerText =
+                parcel.currentLocation ||
+                "Tracking information is being updated.";
+
+
+            document.getElementById(
+                "detailEstimatedDelivery"
+            ).innerText =
+                parcel.estimatedDelivery ||
+                "Calculating...";
+
+
+            document.getElementById(
+                "detailBookingTime"
+            ).innerText =
+                formatBookingTime(
+                    parcel.bookingTime
+                );
+
+
+            document.getElementById(
+                "detailsModal"
+            ).style.display =
+                "flex";
+
+        }
+
+
+        /* =========================
+           CLOSE DETAILS MODAL
+        ========================= */
+
+        function closeDetailsModal() {
+
+            document.getElementById(
+                "detailsModal"
+            ).style.display =
+                "none";
+
+        }
+
+
+        /* =========================
+           FORMAT BOOKING TIME
+        ========================= */
+
+        function formatBookingTime(bookingTime) {
+
+            if (!bookingTime) {
+
+                return "Not available";
+
+            }
+
+
+            const date =
+                new Date(bookingTime);
+
+
+            if (isNaN(date.getTime())) {
+
+                return bookingTime;
+
+            }
+
+
+            return date.toLocaleString(
+                "en-IN",
+                {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                }
+            );
+
+        }
+
+
+        /* =========================
+           UPDATE STATUS
+        ========================= */
+
+        async function updateParcelStatus(
+            id,
+            status
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/parcels/" +
+                        id +
+                        "/status",
+                        {
+
+                            method: "PATCH",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    status: status
+
+                                })
+
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to update status"
+                    );
+
+                }
+
+
+                showMessage(
+                    "✓ Parcel #" +
+                    id +
+                    " status updated successfully.",
+                    "success"
+                );
+
+
+                loadParcels();
+
+            }
+
+            catch (error) {
+
+                showMessage(
+                    "Unable to update parcel status.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           SEARCH PARCELS
+        ========================= */
+
+        function searchParcels() {
+
+            const searchText =
+                document.getElementById(
+                    "searchInput"
+                ).value
+                    .toLowerCase()
+                    .trim();
+
+
+            const filteredParcels =
+                allParcels.filter(
+                    function (parcel) {
+
+                        return (
+
+                            parcel.id
+                                .toString()
+                                .includes(searchText)
+
+                            ||
+
+                            parcel.customerName
+                                .toLowerCase()
+                                .includes(searchText)
+
+                            ||
+
+                            parcel.sourceStation
+                                .toLowerCase()
+                                .includes(searchText)
+
+                            ||
+
+                            parcel.destinationStation
+                                .toLowerCase()
+                                .includes(searchText)
+
+                        );
+
+                    }
+                );
+
+
+            displayParcels(
+                filteredParcels
+            );
+
+        }
+
+
+        /* =========================
+           CLOSE MODAL ON OUTSIDE CLICK
+        ========================= */
+
+        document.getElementById(
+            "detailsModal"
+        ).addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target.id ===
+                    "detailsModal"
+                ) {
+
+                    closeDetailsModal();
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           INITIAL LOAD
+        ========================= */
+
+        window.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                loadParcels();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
